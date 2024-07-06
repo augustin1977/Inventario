@@ -1,0 +1,24 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrastyle %}
+<style>
+    .field-foto img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+{% if original.foto %}
+<div class="field-box field-foto">
+    <label for="id_foto">Foto:</label>
+    <br />
+    <img src="{{ original.foto.url }}" alt="{{ original.RGP }} - {{ original.nome }}">
+</div>
+{% endif %}
+
+{% endblock %}
