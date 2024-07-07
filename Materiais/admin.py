@@ -13,6 +13,6 @@ class MaterialAdmin(admin.ModelAdmin):
     search_fields = ['RGP', 'nome', 'localizacao__superintendencia', 'localizacao__cidade', 'localizacao__gerencia']
     list_per_page = 10  # Define o número de registros por página
     def display_foto(self, obj):
-        return format_html('<img src="{}" height="150 width=100" />', obj.foto.url)
+        return format_html('<img src="{}" height="150 width=100" />', obj.foto1.url)
 
     display_foto.short_description = 'Foto'  # Nome da coluna na listagem

@@ -24,7 +24,7 @@ class Material(models.Model):
     data_atualizacao=models.DateTimeField(auto_now=True)
     nome = models.CharField(max_length=255)
     localizacao=models.ForeignKey(Localizacao, on_delete=models.CASCADE)
-    foto1=models.ImageField(verbose_name="Foto do Item")
+    foto1=models.ImageField(verbose_name="Foto do Item",null=True,blank=True)
     estado=models.ForeignKey(Estado_bem,on_delete=models.CASCADE)
     obs=models.TextField(verbose_name="Observação",null=True,blank=True)
     ativo=models.BooleanField(verbose_name="Item em uso?",default=True)

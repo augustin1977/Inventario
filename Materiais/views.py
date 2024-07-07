@@ -8,10 +8,9 @@ from .forms import *
 def cadastro(request):
     context ={}
     # add the dictionary during initialization
-    form = CadstroMaterial(request.POST or None)
+    form = CadstroMaterial(request.POST, request.FILES)
     if form.is_valid():
         form.save()
-        print("Salvou")
-         
+          
     context['form']= form
     return render(request, "cadastro_material.html", context)
