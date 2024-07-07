@@ -4,6 +4,7 @@ from django.utils.html import format_html
 # Register your models here.
 # admin.site.register(Material)
 admin.site.register(Localizacao)
+admin.site.register(Estado_bem)
 
 @admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):

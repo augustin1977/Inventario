@@ -19,8 +19,10 @@ from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import RedirectView
+from Materiais import views
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/admin')),
     path('admin/', admin.site.urls),
+    path('cadastro/',views.cadastro, name="cadastro" ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

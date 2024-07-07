@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% load bootstrap %}
+{% block 'titulo'%} Cadastro Item  {% endblock %}
+{% block 'menu' %} 
+{% endblock %}
+{% block 'conteudo'%} 
+<div class="text-center">
+    <br><br>
+    <h1>Cadastro Item</h1>
+</div>
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-3'></div>
+        <div class='col-md'>
+            <form method="POST" enctype="multipart/form-data">
+ 
+                <!-- Security token -->
+                {% csrf_token %}
+             
+                <!-- Using the formset -->
+                {{ form|bootstrap }}
+                 
+                <input type="submit" value="Submit">
+            </form> 
+        </div>
+        <div class='col-md-3'></div>
+    </div>
+</div>
+{% endblock %}
