@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% load bootstrap %}
+{% block 'titulo'%} Sistema de Invenstário  {% endblock %}
+{% block 'menu' %} 
+{% endblock %}
+{% block 'conteudo'%} 
+<div class="text-center">
+    <br><br>
+    {% if status == '1' %}
+    <div class="alert alert-success" role="alert">
+        Cadastro de Item Realizado com sucesso
+      </div>
+    {% endif %}
+    <h1> - Sistema de Inventário - </h1>
+    
+</div>
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-3'></div>
+        <div class='col-md'>
+            
+        </div>
+        <div class='col-md-3'></div>
+    </div>
+</div>
+{% endblock %}

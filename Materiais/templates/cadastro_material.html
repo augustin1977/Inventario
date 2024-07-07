@@ -6,6 +6,11 @@
 {% block 'conteudo'%} 
 <div class="text-center">
     <br><br>
+    {% if status == '99' %}
+    <div class="alert alert-danger" role="alert">
+       Erro de Cadastro
+      </div>
+    {% endif %}
     <h1>Cadastro Item</h1>
 </div>
 <div class='container'>

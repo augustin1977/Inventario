@@ -20,9 +20,15 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import RedirectView
 from Materiais import views
+from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/admin')),
+    path('', RedirectView.as_view(url='/cadastro')),
     path('admin/', admin.site.urls),
-    path('cadastro/',views.cadastro, name="cadastro" ),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('cadastro/',include('Materiais.urls')),
+    path('logout/',views.logoutUser,name='logout_user'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
