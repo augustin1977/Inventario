@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+import secret
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -136,3 +136,11 @@ SESSION_SAVE_EVERY_REQUEST = True
 # media settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = (os.path.join(BASE_DIR, 'media')) #pasta media para abrigar os arquivos dos usuários
+
+# email config
+EMAIL_BACKEND=secret.backend
+EMAIL_HOST=secret.host
+EMAIL_PORT=secret.port
+EMAIL_USE_TLS=secret.tls
+EMAIL_HOST_USER=secret.email2
+EMAIL_HOST_PASSWORD=secret.senha
