@@ -66,7 +66,6 @@ def listar_materiais(request):
 
 
 @login_required
-
 @user_passes_test(is_admin,login_url='/cadastro?status=99')
 def editar_item(request, id):
     item = get_object_or_404(Material, id=id)
