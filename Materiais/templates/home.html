@@ -11,6 +11,11 @@
         Cadastro de Item Realizado com sucesso
       </div>
     {% endif %}
+    {% if status == '99' %}
+    <div class="alert alert-danger" role="alert">
+        Não tem permissão para acessar essa funcionalidade
+      </div>
+    {% endif %}
     <h1> - Sistema de Inventário - </h1>
     
 </div>

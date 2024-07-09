@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% load bootstrap %}
+{% block 'titulo'%} Apagar Item  {% endblock %}
+{% block 'menu' %} 
+{% include 'menu.html' %}
+{% endblock %}
+{% block 'conteudo'%} 
+<style>
+    .item-image {
+        width: 500px;
+        max-height: 500px;
+        object-fit: contain;
+    }
+</style>
+<div class="text-center">
+
+    {% if status == '99' %}
+    <div class="alert alert-danger" role="alert">
+       Erro de Cadastro
+      </div>
+    {% endif %}
+    <h1>Apagar Item</h1>
+</div>
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-2'></div>
+        <div class='col-md'>
+            <h2>Apagar Item</h2>
+        <p>Tem certeza que deseja apagar o item abaxo?:</p>
+        <p>RGP: {{item.RGP}}</p>
+        <p>Nome: {{ item.nome }}</p>
+        <p>Localização: {{item.localizacao}}</p>
+        {% if item.foto1 %}
+        <p>imagem :<img src="{{ item.foto1.url }}" alt="Foto 1 do Item" class="item-image"> {% endif %}</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Apagar</button>
+            <a href="{% url 'listar_materiais' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+        </div>
+        <div class='col-md-2'></div>
+    </div>
+</div>
+{% endblock %}

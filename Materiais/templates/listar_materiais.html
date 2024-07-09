@@ -1,19 +1,28 @@
 {% extends 'base.html'%}
 {% load bootstrap %}
-{% block 'titulo'%} Cadastro Item  {% endblock %}
+{% block 'titulo'%} Listar Itens  {% endblock %}
 {% block 'menu' %} 
 {% include 'menu.html' %}
 {% endblock %}
 {% block 'conteudo'%} 
 <style>
     .item-image {
-        width: 200px;
-        max-height: 200px;
+        width: 120px;
+        max-height: 150px;
         object-fit: contain;
+    }
+    .icon-large {
+        font-size: 1.5em; /* Ajuste este valor conforme necessário */
+    }
+    .icon-black {
+        color: black;
+    }
+    .icon-red {
+        color: red;
     }
 </style>
 <div class="text-center">
-    <h1>Cadastro Item</h1>
+    <h1>Listar Itens</h1>
 </div>
 <div class='container'>
     <div class='row'>
@@ -28,10 +37,12 @@
                         <th>Foto</th>
                         <th>Estado</th>
                         <th>Valor</th>
+                        <th>Editar</th>
+                        <th>Apagar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for material in materiais %}
+                    {% for material in page_obj %}
                     <tr>
                         <td>{{ material.RGP }}</td>
                         <td>{{ material.nome }}</td>
@@ -45,11 +56,71 @@
                         </td>
                         <td>{{ material.estado }}</td>
                         <td>{{ material.valor }}</td>
+                        <td><a href="{% url 'editar_item' material.id %}"<i class="bi bi-pencil icon-large icon-black"></i></a></td>
+                        <td><a href="{% url 'apagar_item' material.id %}"<i class="bi bi-trash icon-large icon-red"></i></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                        {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
         <div class='col-md-3'></div>
     </div>
 </div>
