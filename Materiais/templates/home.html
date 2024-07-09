@@ -2,10 +2,10 @@
 {% load bootstrap %}
 {% block 'titulo'%} Sistema de Invenstário  {% endblock %}
 {% block 'menu' %} 
+{% include 'menu.html' %}
 {% endblock %}
 {% block 'conteudo'%} 
 <div class="text-center">
-    <br><br>
     {% if status == '1' %}
     <div class="alert alert-success" role="alert">
         Cadastro de Item Realizado com sucesso
