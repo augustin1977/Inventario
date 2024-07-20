@@ -40,13 +40,13 @@ def logoutUser(request):
 
 
 @login_required
-def cadastrar(request):
+def cadastrar_material(request):
     context = {}
     if request.method == 'POST':
         form = CadstroMaterial(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect("/?status=1")
+            return redirect("/cadastro?status=1")
     else:
         form = CadstroMaterial()
           
@@ -88,3 +88,24 @@ def apagar_item(request, id):
         item.save()
         return redirect('listar_materiais')
     return render(request, 'confirmar_apagar.html', {'item': item})
+
+@login_required
+@user_passes_test(is_admin,login_url='/cadastro?status=99')
+def cadastrar_localizacao(request):
+    context = {}
+    if request.method == 'POST':
+        form = CadastroLocalizacao(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("/cadastro?status=1")
+    else:
+        form = CadastroLocalizacao()
+          
+    context['form'] = form
+    return render(request, "cadastro_localizacao.html", context)
+
+@login_required
+@user_passes_test(is_user,login_url='/?status=99')
+def listar_localizacao(request):
+    locais = Localizacao.objects.filter(ativo=1)   
+    return render(request, 'listar_materiais.html', {'page_obj': locais})

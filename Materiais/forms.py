@@ -20,3 +20,11 @@ class CadstroMaterial(forms.ModelForm):
         widgets = {
             'foto1': forms.FileInput(attrs={'accept': 'image/*;capture=camera'})
         }
+class CadastroLocalizacao(forms.ModelForm):
+
+    # create meta class
+    class Meta:
+        # specify model to be used
+        model = Localizacao
+        # specify fields to be used
+        fields = "__all__"

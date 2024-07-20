@@ -1,0 +1,68 @@
+{% extends 'base.html'%}
+{% load bootstrap %}
+{% block 'titulo'%} Listar Itens  {% endblock %}
+{% block 'menu' %} 
+{% include 'menu.html' %}
+{% endblock %}
+{% block 'conteudo'%} 
+<style>
+    .item-image {
+        width: 120px;
+        max-height: 150px;
+        object-fit: contain;
+    }
+    .icon-large {
+        font-size: 1.5em; /* Ajuste este valor conforme necessário */
+    }
+    .icon-black {
+        color: black;
+    }
+    .icon-red {
+        color: red;
+    }
+</style>
+<div class="text-center">
+    <h1>Listar Itens</h1>
+</div>
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-3'></div>
+        
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>RGP</th>
+                        <th>Nome</th>
+                        <th>Localização</th>
+                        <th>Foto</th>
+                        <th>Estado</th>
+                        <th>Valor</th>
+                        <th>Editar</th>
+                        <th>Apagar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for material in page_obj %}
+                    <tr>
+                        <td>{{ material.RGP }}</td>
+                        <td>{{ material.nome }}</td>
+                        <td>{{ material.localizacao }}</td>
+                        <td>
+                            {% if material.foto1 %}
+                            <img src="{{ material.foto1.url }}" alt="Foto 1 do Item" class="item-image">
+                            {% else %}
+                                Sem foto
+                            {% endif %}
+                        </td>
+                        <td>{{ material.estado }}</td>
+                        <td>{{ material.valor }}</td>
+                        <td><a href="{% url 'editar_item' material.id %}"<i class="bi bi-pencil icon-large icon-black"></i></a></td>
+                        <td><a href="{% url 'apagar_item' material.id %}"<i class="bi bi-trash icon-large icon-red"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        <div class='col-md-3'></div>
+    </div>
+</div>
+{% endblock %}
