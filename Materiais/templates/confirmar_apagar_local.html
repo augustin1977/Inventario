@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 {% load bootstrap %}
-{% block 'titulo'%} Apagar Item  {% endblock %}
+{% block 'titulo'%} Apagar Local  {% endblock %}
 {% block 'menu' %} 
 {% include 'menu.html' %}
 {% endblock %}
@@ -27,15 +27,16 @@
         <div class='col-md'>
             <h2>Apagar Item</h2>
         <p>Tem certeza que deseja apagar o item abaxo?:</p>
-        <p>RGP: {{item.RGP}}</p>
-        <p>Nome: {{ item.nome }}</p>
-        <p>Localização: {{item.localizacao}}</p>
-        {% if item.foto1 %}
-        <p>imagem :<img src="{{ item.foto1.url }}" alt="Foto 1 do Item" class="item-image"> {% endif %}</p>
+        <p>SuperIntenendia: {{local.superintendencia}}</p>
+        <p>Cidade: {{ local.cidade }}</p>
+        <p>Gerência: {{local.gerencia}}</p>
+        <p>Endereço: {{local.endereco}}</p>
+        <p>Observacao: {{local.observacao}}</p>
         <form method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Apagar</button>
-            <a href="{% url 'listar_materiais' %}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-danger">Apagar</button>
+
+            <a href="{% url 'listar_localizacao' %}" class="btn btn-secondary">Cancelar</a>
         </form>
         </div>
         <div class='col-md-2'></div>

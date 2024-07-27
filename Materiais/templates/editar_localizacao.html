@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 {% load bootstrap %}
-{% block 'titulo'%} Editar Item  {% endblock %}
+{% block 'titulo'%} Editar Localização  {% endblock %}
 {% block 'menu' %} 
 {% include 'menu.html' %}
 {% endblock %}
@@ -12,7 +12,7 @@
        Erro de Cadastro
       </div>
     {% endif %}
-    <h1>Editar Item</h1>
+    <h1>Editar Localização</h1>
 </div>
 <div class='container'>
     <div class='row'>
@@ -27,7 +27,7 @@
                 {{ form|bootstrap }}
                  
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
-                <a href="{% url 'listar_materiais' %}" class="btn btn-secondary">Cancelar</a>
+                <a href="{% url 'listar_localizacao' %}" class="btn btn-secondary">Cancelar</a>
             </form> 
         </div>
         <div class='col-md-2'></div>

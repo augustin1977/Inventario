@@ -3,12 +3,12 @@ from djmoney.models.fields import *
 
 
 class Localizacao(models.Model):
-    superintendencia=models.CharField(max_length=255,default="SP")
+    superintendencia=models.CharField(verbose_name="Superintendência",max_length=255,default="SP")
     cidade=models.CharField(max_length=255)
-    gerencia=models.CharField(max_length=255)
-    endereco=models.TextField(null=True,blank=True)
-    obs=models.TextField(null=True,blank=True)
-    ativo=models.BooleanField(default=True)
+    gerencia=models.CharField(verbose_name="Gerência",max_length=255)
+    endereco=models.TextField(verbose_name="Endereço Completo",null=True,blank=True)
+    obs=models.TextField(verbose_name="Observação",null=True,blank=True)
+    ativo=models.BooleanField(verbose_name="Em uso",default=True)
 
     def __str__(self):
         return f"{self.superintendencia} - {self.gerencia} - {self.cidade} - {self.endereco}"

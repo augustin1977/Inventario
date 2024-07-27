@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.ForcePasswordChangeMiddleware',
 ]
 
 ROOT_URLCONF = 'inventario.urls'
@@ -144,3 +145,6 @@ EMAIL_PORT=secret.port
 EMAIL_USE_TLS=secret.tls
 EMAIL_HOST_USER=secret.email2
 EMAIL_HOST_PASSWORD=secret.senha
+EMAIL_HOST_PASSWORD_APP=secret.Senha_app
+DEFAULT_FROM_EMAIL = secret.email2
+

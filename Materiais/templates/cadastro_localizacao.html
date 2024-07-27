@@ -1,16 +1,15 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% load bootstrap %}
-{% block 'titulo'%} Cadastro Localização  {% endblock %}
+{% block 'titulo' %} Cadastro Localização {% endblock %}
 {% block 'menu' %} 
 {% include 'menu.html' %}
 {% endblock %}
-{% block 'conteudo'%} 
+{% block 'conteudo' %} 
 <div class="text-center">
-
     {% if status == '99' %}
     <div class="alert alert-danger" role="alert">
-       Erro de Cadastro
-      </div>
+        Erro de Cadastro
+    </div>
     {% endif %}
     <h1>Cadastro Localização</h1>
 </div>
@@ -19,13 +18,28 @@
         <div class='col-md-2'></div>
         <div class='col-md'>
             <form method="POST" enctype="multipart/form-data">
- 
                 <!-- Security token -->
                 {% csrf_token %}
-             
+
+                <!-- Display form errors -->
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
                 <!-- Using the formset -->
                 {{ form|bootstrap }}
-                 
+
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
             </form> 
         </div>

@@ -31,33 +31,31 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>RGP</th>
-                        <th>Nome</th>
-                        <th>Localização</th>
-                        <th>Foto</th>
-                        <th>Estado</th>
-                        <th>Valor</th>
+                        <th>Superintendencia</th>
+                        <th>Cidade</th>
+                        <th>Gerencia</th>
+                        <th>Endereço</th>
+                        <th>obs</th>
+                        <th>Em atividade</th>
                         <th>Editar</th>
                         <th>Apagar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for material in page_obj %}
+                    {% for local in page_obj %}
                     <tr>
-                        <td>{{ material.RGP }}</td>
-                        <td>{{ material.nome }}</td>
-                        <td>{{ material.localizacao }}</td>
-                        <td>
-                            {% if material.foto1 %}
-                            <img src="{{ material.foto1.url }}" alt="Foto 1 do Item" class="item-image">
-                            {% else %}
-                                Sem foto
-                            {% endif %}
-                        </td>
-                        <td>{{ material.estado }}</td>
-                        <td>{{ material.valor }}</td>
-                        <td><a href="{% url 'editar_item' material.id %}"<i class="bi bi-pencil icon-large icon-black"></i></a></td>
-                        <td><a href="{% url 'apagar_item' material.id %}"<i class="bi bi-trash icon-large icon-red"></i></a></td>
+                        <td>{{ local.superintendencia }}</td>
+                        <td>{{ local.cidade }}</td>
+                        <td>{{ local.gerencia }}</td>
+                        <td>{{ local.endereco }}                        </td>
+                        <td>{{ local.obs }}</td>
+                        {% if local.ativo %} 
+                        <td> Local em Uso</td>
+                        {% else %}
+                        <td>Local dasativado </td>
+                        {% endif %}
+                        <td><a href="{% url 'editar_local' local.id %}"<i class="bi bi-pencil icon-large icon-black"></i></a></td>
+                        <td><a href="{% url 'apagar_local' local.id %}"<i class="bi bi-trash icon-large icon-red"></i></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
