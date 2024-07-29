@@ -59,6 +59,7 @@
                             <th>Foto</th>
                             <th>Estado</th>
                             <th>Valor</th>
+                            <th>em Uso?</th>
                             <th>Editar</th>
                             <th>Apagar</th>
                         </tr>
@@ -78,6 +79,11 @@
                             </td>
                             <td>{{ material.estado }}</td>
                             <td>{{ material.valor }}</td>
+                            {% if material.ativo %}
+                            <td> <i class="bi bi-check2 action-icon green"></i> </td>
+                           {% else %} 
+                           <td> <i class="bi bi-x action-icon text-danger "></i> </td>
+                           {% endif%}
                             <td><a href="{% url 'editar_item' material.id %}"><i class="bi bi-pencil action-icon text-dark"></i></a></td>
                             <td><a href="{% url 'apagar_item' material.id %}"><i class="bi bi-trash action-icon text-danger"></i></a></td>
                         </tr>

@@ -152,8 +152,11 @@ def exportar_pdf(materiais_list):
     style_cell = ParagraphStyle(name='Normal', alignment=TA_LEFT, fontSize=10)
 
     # Dados da tabela
-    data = [["RGP", "Nome", "Localização", "Estado","Foto", "Valor"]]
+    data = [["RGP", "Nome", "Localização", "Estado","Foto", "Valor","em Uso?"]]
     for material in materiais_list:
+        ativo="Não"
+        if material.ativo:
+            ativo="Sim"
         foto_path = os.path.join(settings.MEDIA_ROOT, material.foto1.name) if material.foto1 else None
         
         # Verificar se a foto existe e adicionar ao PDF
@@ -164,6 +167,7 @@ def exportar_pdf(materiais_list):
             img.drawWidth = 2 * cm
             img.drawHeight = 2 * cm * img.imageHeight/ img.imageWidth  
               # Mantém a proporção da imagem
+            
         else:
             img = Paragraph("Sem foto", style_cell)
         data.append([
@@ -172,7 +176,8 @@ def exportar_pdf(materiais_list):
             Paragraph(str(material.localizacao), style_cell),
             Paragraph(str(material.estado), style_cell),
             img,
-            Paragraph(str(material.valor), style_cell)
+            Paragraph(str(material.valor), style_cell),
+            Paragraph(ativo, style_cell)
         ])
 
     # Criar a tabela
@@ -206,12 +211,15 @@ def exportar_pdf(materiais_list):
 
 
 def exportar_xlsx(materiais_list):
+    sim_nao=lambda x: "Sim" if x else "Não"
+    
     data = [{
         'RGP': material.RGP,
         'Nome': material.nome,
         'Localização': material.localizacao,
         'Estado': material.estado,
-        'Valor': material.valor
+        'Valor': material.valor,
+        'Em Uso?': sim_nao(material.ativo)
     } for material in materiais_list]
 
     df = pd.DataFrame(data)

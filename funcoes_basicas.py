@@ -54,6 +54,8 @@ def is_user(view_func):
             tipoadmin=Tipo.objects.get(tipo="admin")
             if user.ativo==1 and (user.tipo==tipouser or user.tipo==tipoadmin):
                 return view_func(request, *args, **kwargs)
+            else:
+                return redirect('login')
         else:
             return redirect('login')  # Redireciona para uma página de login ou qualquer outra página apropriada
     return wrapper
@@ -68,6 +70,8 @@ def is_admin(view_func):
             tipo=Tipo.objects.get(tipo="admin")
             if user.ativo and user.tipo==tipo:
                 return view_func(request, *args, **kwargs)
+            else: 
+                return redirect("/cadastro?status=99")
         else:
             return redirect("/cadastro?status=99")  # Redireciona para uma página de login ou qualquer outra página apropriada
     return wrapper
