@@ -1,0 +1,29 @@
+/* styles.css */
+body {
+    overflow-x: hidden; /* Impede o vazamento lateral do conteúdo */
+}
+
+.navbar {
+    padding: 0.5rem 1rem;
+}
+.navbar-nav .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    white-space: nowrap; /* Impede a quebra de linha nos links do menu */
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        flex-wrap: wrap;
+        height: auto;
+    }
+    .navbar-nav {
+        width: 100%;
+        text-align: center;
+    }
+    .navbar-nav .nav-link {
+        display: inline-block;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}

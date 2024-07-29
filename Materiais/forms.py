@@ -5,8 +5,6 @@ from djmoney.forms.fields import MoneyField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 import re
-import string
-import random
 from django.core.mail import send_mail
 from django.conf import settings
 import funcoes_basicas

@@ -8,11 +8,21 @@
 <style>
     .item-image {
         width: 200px;
-        max-height: 200px;
+        max-height: 120px;
         object-fit: contain;
     }
     .action-icon {
         font-size: 24px;
+    }
+    .fixed-header {
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 100;
+    }
+    .scrollable-table {
+        max-height: 500px; /* Ajuste conforme necessário */
+        overflow-y: auto;
     }
 </style>
 <div class="text-center">
@@ -31,44 +41,50 @@
                 </div>
             </form>
         </div>
-        <div class='col-md-3'></div>
-    </div>
+        <div class='row mb-3'>
+            <div class='col-md-12 text-right'>
+                <a href="?export=pdf&q={{ query|default_if_none:'' }}" class="btn btn-danger">Exportar PDF</a>
+                <a href="?export=xlsx&q={{ query|default_if_none:'' }}" class="btn btn-success">Exportar XLSX</a>
+            </div>
+        </div>
     <div class='row'>
         <div class='col-md-12'>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>RGP</th>
-                        <th>Nome</th>
-                        <th>Localização</th>
-                        <th>Foto</th>
-                        <th>Estado</th>
-                        <th>Valor</th>
-                        <th>Editar</th>
-                        <th>Apagar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for material in page_obj %}
-                    <tr>
-                        <td>{{ material.RGP }}</td>
-                        <td>{{ material.nome }}</td>
-                        <td>{{ material.localizacao }}</td>
-                        <td>
-                            {% if material.foto1 %}
-                            <img src="{{ material.foto1.url }}" alt="Foto 1 do Item" class="item-image">
-                            {% else %}
-                                Sem foto
-                            {% endif %}
-                        </td>
-                        <td>{{ material.estado }}</td>
-                        <td>{{ material.valor }}</td>
-                        <td><a href="{% url 'editar_item' material.id %}"><i class="bi bi-pencil action-icon text-dark"></i></a></td>
-                        <td><a href="{% url 'apagar_item' material.id %}"><i class="bi bi-trash action-icon text-danger"></i></a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="scrollable-table-responsive">
+                <table class="table table-bordered">
+                    <thead class="fixed-header">
+                        <tr>
+                            <th>RGP</th>
+                            <th>Nome</th>
+                            <th>Localização</th>
+                            <th>Foto</th>
+                            <th>Estado</th>
+                            <th>Valor</th>
+                            <th>Editar</th>
+                            <th>Apagar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for material in page_obj %}
+                        <tr>
+                            <td>{{ material.RGP }}</td>
+                            <td>{{ material.nome }}</td>
+                            <td>{{ material.localizacao }}</td>
+                            <td>
+                                {% if material.foto1 %}
+                                <img src="{{ material.foto1.url }}" alt="Foto 1 do Item" class="item-image">
+                                {% else %}
+                                    Sem foto
+                                {% endif %}
+                            </td>
+                            <td>{{ material.estado }}</td>
+                            <td>{{ material.valor }}</td>
+                            <td><a href="{% url 'editar_item' material.id %}"><i class="bi bi-pencil action-icon text-dark"></i></a></td>
+                            <td><a href="{% url 'apagar_item' material.id %}"><i class="bi bi-trash action-icon text-danger"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}

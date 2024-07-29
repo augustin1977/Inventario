@@ -13,44 +13,25 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     <title>{% block 'titulo' %} {% endblock %}</title>
-
-    <style>
-      body {
-          padding-top: 56px; /* Altura do menu fixo */
-      }
-      @media (max-width: 700px) {
-          body {
-              padding-top: 125px; /* Ajuste para dispositivos móveis */
-          }
-      }
-  </style>
   </head>
-   <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" ></script>
-    
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> 
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <body>
-   
     <nav class="navbar navbar-dark bg-dark fixed-top">
       <a class="nav-link text-light" href="{% url 'home' %}">Inicio</a>  
       {% block 'menu' %}  {% endblock %}
-      {% if user.is_authenticated %}
-      <a class="nav-link text-light" href="{% url 'logout_user' %}">Sair de {{ user.first_name }} {{ user.last_name }}</a>
-      {% else %}
-      <a class="nav-link text-light" href="{% url 'login' %}">login</a>
-      {% endif %}
-          
-
+      <a class="nav-link text-light" href="{% url 'sair' %}">Sair</a>
     </nav>
+
     {% block 'conteudo' %} {% endblock %}
-      
+    <br>
+    <br>
+    <footer class="fixed-bottom text-left ">
+        By Eric Augustin - <a href='mailto:ericaugustin@gmail.com'>Contato <i class="bi bi-envelope-at"></i></a>
+    </footer>
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
-<p></p>
-<p></p>
-<p></p>
-.
-<footer class="fixed-bottom">
-        By Eric Augustin - <a href='mailto:ericaugustin@gmail.com'>Contato <i class="bi bi-envelope-at"></i></a>   </footer>
 </html>

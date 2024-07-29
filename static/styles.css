@@ -1,0 +1,58 @@
+/* styles.css */
+
+/* Adiciona padding no body para garantir que o conteúdo não vá para fora da tela */
+body {
+    padding-top: 60px; /* Altura da navbar fixa */
+    margin: 0;
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+}
+
+/* Ajusta o comportamento da navbar para dispositivos móveis */
+.navbar {
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+}
+
+.navbar-nav .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+/* Ajusta a imagem do item para caber na tela */
+.item-image {
+    width: 100%; /* Faz a imagem ocupar a largura disponível */
+    max-width: 200px; /* Define um tamanho máximo para a imagem */
+    height: auto; /* Mantém a proporção da imagem */
+    object-fit: contain;
+}
+
+/* Ajusta a tabela para dispositivos móveis */
+.table-responsive {
+    overflow-x: auto; /* Permite rolagem horizontal se necessário */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos touch */
+}
+
+/* Ajustes específicos para dispositivos móveis */
+@media (max-width: 1120px) {
+    body {
+        padding-top: 165px; /* Ajusta o padding para dispositivos móveis */
+    }
+}
+@media (max-width: 430px) {
+    body {
+        padding-top: 240px; /* Ajusta o padding para dispositivos móveis */
+    }
+
+}
+@media (max-width: 369px) {
+    body {
+        padding-top: 290px; /* Ajusta o padding para dispositivos móveis */
+    }
+
+}
+@media (max-width: 300px) {
+    body {
+        padding-top: 350px; /* Ajusta o padding para dispositivos móveis */
+    }
+
+}

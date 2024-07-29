@@ -1,6 +1,6 @@
 from django.db import models
 from djmoney.models.fields import *
-
+   
 
 class Localizacao(models.Model):
     superintendencia=models.CharField(verbose_name="Superintendência",max_length=255,default="SP")
@@ -19,7 +19,7 @@ class Estado_bem(models.Model):
         return f"{self.estado}"
 
 class Material(models.Model):
-    RGP = models.CharField(verbose_name="Numero RGP",max_length=255,unique=True)
+    RGP = models.CharField(verbose_name="Numero RGP",max_length=255,unique=False)
     data_cadastro=models.DateTimeField(auto_now_add=True)
     data_atualizacao=models.DateTimeField(auto_now=True)
     nome = models.CharField(max_length=255)

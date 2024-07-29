@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+
 urlpatterns = [
     path("",views.home, name="home"),
     path("cadastrar_item/",views.cadastrar_material, name="cadastrar_item"),
@@ -10,4 +11,5 @@ urlpatterns = [
     path('itens/apagar/<int:id>/', views.apagar_item, name='apagar_item'),
     path('localizacao/editar/<int:id>/', views.editar_localizacao, name='editar_local'),
     path('localiacao/apagar/<int:id>/', views.apagar_localizacao, name='apagar_local'),
+    
 ]
