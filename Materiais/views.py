@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from .models import *
 from django.core.paginator import Paginator
 from .forms import *
