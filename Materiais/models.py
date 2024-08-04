@@ -32,7 +32,7 @@ class Material(models.Model):
     estado=models.ForeignKey(Estado_bem,on_delete=models.CASCADE)
     obs=models.TextField(verbose_name="Observação",null=True,blank=True)
     ativo=models.BooleanField(verbose_name="Item em uso?",default=True)
-    descartado =models.BooleanField(verbose_name="Recolhimento?",default=False) 
+    descartado =models.BooleanField(verbose_name="Colocar à disposição?",default=False) 
     valor=MoneyField(max_digits=19, decimal_places=4, null=True, default_currency="BRL")
 
     def __str__(self):
