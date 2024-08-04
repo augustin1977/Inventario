@@ -11,5 +11,6 @@ urlpatterns = [
     path('itens/apagar/<int:id>/', views.apagar_item, name='apagar_item'),
     path('localizacao/editar/<int:id>/', views.editar_localizacao, name='editar_local'),
     path('localiacao/apagar/<int:id>/', views.apagar_localizacao, name='apagar_local'),
+    path('disponibilizar/<int:id>/', views.disponibilizar_item, name='disponibilizar_item'),
     
 ]

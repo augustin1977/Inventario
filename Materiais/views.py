@@ -19,6 +19,7 @@ import os
 from django.conf import settings
 import pandas as pd
 from PIL import Image as PILImage
+from django.http import JsonResponse
 @is_user
 def home(request):
     status = str(request.GET.get("status"))
@@ -48,13 +49,36 @@ def cadastrar_material(request):
 @is_user
 def listar_materiais(request):
     query = request.GET.get('q')
-    if query:
+    gerencia = request.GET.get('gerencia')
+    gerencias=Localizacao.objects.all()
+    
+    if gerencia and not query:
+        busca=gerencia.split('_')
+        local=Localizacao.objects.get(superintendencia=busca[0].strip(),
+                                         cidade=busca[2].strip(),
+                                         gerencia__icontains=busca[1].strip())
+        materiais_list = Material.objects.filter(localizacao=local).order_by('localizacao__gerencia')
+        #materiais_list = Material.objects.all()
+    elif query and not gerencia:
+        
         materiais_list = Material.objects.filter(
             Q(nome__icontains=query) |
             Q(localizacao__gerencia__icontains=query) |
             Q(localizacao__cidade__icontains=query) |
             Q(localizacao__superintendencia__icontains=query) |
             Q(RGP__icontains=query) &
+            Q(ativo=1)
+        ).order_by('localizacao__gerencia')
+    elif query and gerencia:
+        busca=gerencia.split('_')
+        local=Localizacao.objects.filter(superintendencia=busca[0].strip(),
+                                         cidade=busca[2].strip(),
+                                         gerencia__icontains=busca[1].strip())
+        materiais_list = Material.objects.filter(
+            Q(nome__icontains=query) |
+            Q(localizacao__cidade__icontains=query) |
+            Q(localizacao__superintendencia__icontains=query) |
+            Q(RGP__icontains=query) & Q(localizacao=local[0])&
             Q(ativo=1)
         ).order_by('localizacao__gerencia')
     else:
@@ -72,7 +96,7 @@ def listar_materiais(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'listar_materiais.html', {'page_obj': page_obj, 'query': query})
+    return render(request, 'listar_materiais.html', {'page_obj': page_obj, 'query': query,'selected_gerencia':gerencia ,'gerencias':gerencias})
 
 
 @is_user
@@ -87,13 +111,21 @@ def editar_item(request, id):
         form = CadstroMaterial(instance=item)
     return render(request, 'editar_item.html', {'form': form, 'item': item})
 
+@is_user
+def disponibilizar_item(request, id):
+    if request.method == 'POST':
+        item = get_object_or_404(Material, id=id)
+        item.ativo = False
+        item.descartado = True
+        item.save()
+        return JsonResponse({'status': 'success', 'ativo': item.ativo, 'descartado': item.descartado})
+    return JsonResponse({'status': 'fail'})
 
 @is_user
 def apagar_item(request, id):
     item = get_object_or_404(Material, id=id)
     if request.method == 'POST':
-        item.ativo=0
-        item.save()
+        item.delete()  # Deleta o item do banco de dados
         return redirect('listar_materiais')
     return render(request, 'confirmar_apagar.html', {'item': item})
 
@@ -152,11 +184,14 @@ def exportar_pdf(materiais_list):
     style_cell = ParagraphStyle(name='Normal', alignment=TA_LEFT, fontSize=10)
 
     # Dados da tabela
-    data = [["RGP", "Nome", "Localização", "Estado","Foto", "Valor","em Uso?"]]
+    data = [["RGP", "Nome", "Localização", "Estado","Foto", "Valor","Desfaz.?","em Uso?"]]
     for material in materiais_list:
         ativo="Não"
+        descartado="Não"
         if material.ativo:
             ativo="Sim"
+        if material.descartado:
+            descartado="Sim"
         foto_path = os.path.join(settings.MEDIA_ROOT, material.foto1.name) if material.foto1 else None
         
         # Verificar se a foto existe e adicionar ao PDF
@@ -173,15 +208,16 @@ def exportar_pdf(materiais_list):
         data.append([
             Paragraph(str(material.RGP), style_cell),
             Paragraph(str(material.nome), style_cell),
-            Paragraph(str(material.localizacao), style_cell),
+            Paragraph(str(material.localizacao.local()), style_cell),
             Paragraph(str(material.estado), style_cell),
             img,
             Paragraph(str(material.valor), style_cell),
+            Paragraph(descartado, style_cell),
             Paragraph(ativo, style_cell)
         ])
 
     # Criar a tabela
-    table = Table(data, colWidths=[50, 100, 130, 45, 65, 80])
+    table = Table(data, colWidths=[50, 100, 100, 50, 70,70,70])
     
     # Estilo da tabela
     style = TableStyle([
@@ -212,13 +248,14 @@ def exportar_pdf(materiais_list):
 
 def exportar_xlsx(materiais_list):
     sim_nao=lambda x: "Sim" if x else "Não"
-    
+
     data = [{
         'RGP': material.RGP,
         'Nome': material.nome,
         'Localização': material.localizacao,
         'Estado': material.estado,
         'Valor': material.valor,
+        'Desfazimento': sim_nao(material.descartado),
         'Em Uso?': sim_nao(material.ativo)
     } for material in materiais_list]
 
