@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+{% load bootstrap %}
+{% block 'titulo'%} Cadastro Item  {% endblock %}
+{% block 'menu' %} 
+{% include 'menu.html' %}
+{% endblock %}
+{% block 'conteudo'%} 
+<div class="text-center">
+
+    {% if status == '99' %}
+    <div class="alert alert-danger" role="alert">
+       Erro de Cadastro
+      </div>
+    {% endif %}
+    <h1>Cadastro de Item em Lote</h1>
+</div>
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-2'></div>
+        <div class='col-md'>
+            <form method="POST" enctype="multipart/form-data">
+ 
+                <!-- Security token -->
+                {% csrf_token %}
+                <label for="file">Selecione um arquivo:</label>
+                <input type="file" id="file" name="file" required><br><br>
+                 
+                <button type="submit" class="btn btn-primary">Carregar Arquivo</button>
+            </form> 
+        </div>
+        <div class='col-md-2'></div>
+    </div>
+</div>
+
+
+{% endblock %}

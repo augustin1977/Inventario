@@ -45,6 +45,15 @@ def cadastrar_material(request):
     context['form'] = form
     return render(request, "cadastro_material.html", context)
 
+@is_admin
+def cadastrar_material_lote(request):
+    if request.method == 'POST':
+        file = request.FILES.get("file")
+        dados=file.read()
+        return home(request)
+    
+    return render(request, "cadastro_material_lote.html")
+    
 
 @is_user
 def listar_materiais(request):
