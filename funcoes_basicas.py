@@ -22,6 +22,9 @@ def numero(valor,tipo):
             except:
                 corrigindo=True
                 i+=1
+        if type(valor)!=tipo:
+            if(i>=len(valor)):
+                    valor=0
                 
     elif tipo==int:
         while (corrigindo and i<len(valor)):
@@ -31,9 +34,12 @@ def numero(valor,tipo):
             except:
                 corrigindo=True
                 i+=1
+        if type(valor)!=tipo:
+            if(i>=len(valor)):
+                    valor=0
     return valor
 def NAN(valor,opcao):
-    if pd.isna(valor):
+    if pd.isna(valor) or valor=="NaN":
         return opcao
     else:
         return valor

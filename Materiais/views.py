@@ -68,9 +68,9 @@ def cadastrar_material_lote(request):
             # Iterar sobre as linhas da planilha
            
             for index, row in df.iterrows():
-                rgp = str(row['RGP 8 dígitos'])  # Garantir que o RGP tenha 8 dígitos, preenchendo com zeros à esquerda
+                rgp = NAN(str(row['RGP 8 dígitos']),"")  # Garantir que o RGP tenha 8 dígitos, preenchendo com zeros à esquerda
                 if rgp=="":
-                    rgp="NA"
+                    rgp="NC"
                 else:
                     rgp=rgp.zfill(8)
                 i+=1
@@ -97,7 +97,7 @@ def cadastrar_material_lote(request):
                 )
 
                 # Processar o estado
-                estado_nome = NAN(row['ESTADO DE CONSERVAÇÃO'].capitalize(),"")
+                estado_nome = NAN(row['ESTADO DE CONSERVAÇÃO'],"").capitalize()
                 if Estado_bem.objects.filter(estado=estado_nome).exists():
                     estado=Estado_bem.objects.get(estado=estado_nome)
                 else:
@@ -146,7 +146,7 @@ def listar_materiais(request):
         local=Localizacao.objects.get(superintendencia=busca[0].strip(),
                                          cidade=busca[2].strip(),
                                          gerencia__icontains=busca[1].strip())
-        materiais_list = Material.objects.filter(localizacao=local).order_by('localizacao__gerencia')
+        materiais_list = Material.objects.filter(localizacao=local).order_by('RGP')
         #materiais_list = Material.objects.all()
     elif query and not gerencia:
         
@@ -169,7 +169,7 @@ def listar_materiais(request):
             Q(localizacao__superintendencia__icontains=query) |
             Q(RGP__icontains=query) & Q(localizacao=local[0])&
             Q(ativo=1)
-        ).order_by('localizacao__gerencia')
+        ).order_by('RGP')
     else:
         materiais_list = Material.objects.all().order_by('localizacao__gerencia')
 
