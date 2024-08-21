@@ -8,7 +8,7 @@ admin.site.register(Estado_bem)
 
 @admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
-    list_display = ('RGP', 'nome', 'display_foto', 'localizacao', 'data_cadastro', 'ativo')
+    list_display = ('RGP', 'nome', 'display_foto', 'localizacao', 'data_cadastro')
     readonly_fields = ('data_cadastro', 'data_atualizacao')  # Campos que são apenas leitura
     search_fields = ['RGP', 'nome', 'localizacao__superintendencia', 'localizacao__cidade', 'localizacao__gerencia']
     list_per_page = 10  # Define o número de registros por página

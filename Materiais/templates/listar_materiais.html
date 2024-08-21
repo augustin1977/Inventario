@@ -30,7 +30,7 @@
 </div>
 <div class='container'>
     <div class='row'>
-        <div class='col-md-1'></div>
+        <div class='col-md-0'></div>
         <div class='col-md-8'>
             <form method="GET" action="{% url 'listar_materiais' %}">
                 
@@ -61,14 +61,16 @@
                     <thead class="fixed-header">
                         <tr>
                             <th>RGP</th>
+                            <th>Codigo</th>
                             <th>Nome</th>
+                            <th>Modelo</th>
                             <th>Localização</th>
                             <th>Foto</th>
                             <th>Estado</th>
                             <th>Valor</th>
-                            <th>À disposição</th>
+                            <th>Servivel</th>
                             <th>Em uso?</th>
-                            <th>Colocar à disposição?</th>
+                            <th>Ativo</th>
                             <th>Editar</th>
                             <th>Apagar</th>
                         </tr>
@@ -77,8 +79,10 @@
                         {% for material in page_obj %}
                         <tr id="material-{{ material.id }}">
                             <td>{{ material.RGP }}</td>
+                            <td>{{ material.codigo }}</td>
                             <td>{{ material.nome }}</td>
-                            <td>{{ material.localizacao }}</td>
+                            <td>{{ material.modelo }}</td>
+                            <td>{{ material.localizacao.local }}</td>
                             <td>
                                 {% if material.foto1 %}
                                 <img src="{{ material.foto1.url }}" alt="Foto 1 do Item" class="item-image">
@@ -88,8 +92,15 @@
                             </td>
                             <td>{{ material.estado }}</td>
                             <td>{{ material.valor }}</td>
-                            <td id="desfazimento-{{ material.id }}">
-                                {% if material.descartado %}
+                            <td id="servivel-{{ material.id }}">
+                                {% if material.servivel %}
+                                    <i class="bi bi-check2 action-icon green"></i>
+                                {% else %}
+                                    <i class="bi bi-x action-icon text-danger"></i>
+                                {% endif %}
+                            </td>
+                            <td id="uso-{{ material.id }}">
+                                {% if material.uso %}
                                     <i class="bi bi-check2 action-icon green"></i>
                                 {% else %}
                                     <i class="bi bi-x action-icon text-danger"></i>
@@ -101,9 +112,6 @@
                                 {% else %}
                                     <i class="bi bi-x action-icon text-danger"></i>
                                 {% endif %}
-                            </td>
-                            <td>
-                                <button class="btn" onclick="disponibilizarItem({{ material.id }})"><i class="bi bi-send action-icon"></i></button>
                             </td>
                             <td><a href="{% url 'editar_item' material.id %}"><i class="bi bi-pencil action-icon text-dark"></i></a></td>
                             <td><a href="{% url 'apagar_item' material.id %}"><i class="bi bi-trash action-icon text-danger"></i></a></td>
@@ -150,27 +158,5 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    function disponibilizarItem(id) {
-        fetch(`{% url 'disponibilizar_item' 0 %}`.replace('0', id), {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                document.getElementById(`ativo-${id}`).innerHTML = '<i class="bi bi-x action-icon text-danger"></i>';
-                document.getElementById(`desfazimento-${id}`).innerHTML = '<i class="bi bi-check2 action-icon green"></i>';
-            } else {
-                alert('Falha ao colocar o item à disposição.');
-            }
-        });
-    }
-</script>
 
 {% endblock %}

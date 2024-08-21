@@ -6,8 +6,37 @@ from Materiais.models import *
 from django.shortcuts import render,redirect
 from PIL import Image
 import io
+import pandas as pd
 from django.core.files.uploadedfile import InMemoryUploadedFile
-
+def numero(valor,tipo):
+    corrigindo=True
+    i=0
+    if type(valor)==tipo:
+        return valor
+    valor=str(valor)
+    if tipo==float:
+        while (corrigindo and i<len(valor)):
+            try:
+                valor=float(valor[i:])
+                corrigindo=False
+            except:
+                corrigindo=True
+                i+=1
+                
+    elif tipo==int:
+        while (corrigindo and i<len(valor)):
+            try:
+                valor=int(valor[i:])
+                corrigindo=False
+            except:
+                corrigindo=True
+                i+=1
+    return valor
+def NAN(valor,opcao):
+    if pd.isna(valor):
+        return opcao
+    else:
+        return valor
 def resize_image(image_file, max_width=1080, max_height=720):
     # Abrir a imagem usando Pillow
     image = Image.open(image_file)
