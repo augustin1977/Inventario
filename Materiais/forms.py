@@ -27,9 +27,9 @@ class CadstroMaterial(forms.ModelForm):
         }
     def clean_RGP(self):
         RGP = self.cleaned_data.get('RGP')
-        
-        while(len(RGP)<8):
-            RGP="0"+RGP
+        if RGP.isdigit():
+            while(len(RGP)<8):
+                RGP="0"+RGP
         return RGP
 class CadastroLocalizacao(forms.ModelForm):
 

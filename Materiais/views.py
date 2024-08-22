@@ -73,8 +73,8 @@ def cadastrar_material_lote(request):
                     rgp="NC"
                 else:
                     rgp=rgp.zfill(8)
-                i+=1
-                print(i,rgp)
+                # i+=1
+                # print(i,rgp)
                 # Verificar se o material já existe
                 if Material.objects.filter(RGP=rgp).exists():
                     print(f"Item {rgp} ja existe!")
@@ -145,7 +145,7 @@ def listar_materiais(request):
         busca=gerencia.split('_')
         local=Localizacao.objects.get(superintendencia=busca[0].strip(),
                                          cidade=busca[2].strip(),
-                                         gerencia__icontains=busca[1].strip())
+                                         gerencia=busca[1].strip())
         materiais_list = Material.objects.filter(localizacao=local).order_by('RGP')
         #materiais_list = Material.objects.all()
     elif query and not gerencia:
@@ -157,7 +157,7 @@ def listar_materiais(request):
             Q(localizacao__superintendencia__icontains=query) |
             Q(RGP__icontains=query) &
             Q(ativo=1)
-        ).order_by('localizacao__gerencia')
+        ).order_by('RGP')
     elif query and gerencia:
         busca=gerencia.split('_')
         local=Localizacao.objects.filter(superintendencia=busca[0].strip(),
@@ -171,7 +171,7 @@ def listar_materiais(request):
             Q(ativo=1)
         ).order_by('RGP')
     else:
-        materiais_list = Material.objects.all().order_by('localizacao__gerencia')
+        materiais_list = Material.objects.all().order_by('RGP')
 
     # Exportar PDF
     if 'export' in request.GET and request.GET['export'] == 'pdf':
@@ -181,7 +181,7 @@ def listar_materiais(request):
     if 'export' in request.GET and request.GET['export'] == 'xlsx':
         return exportar_xlsx(materiais_list)
 
-    paginator = Paginator(materiais_list, 5)  # 5 itens por página
+    paginator = Paginator(materiais_list, 20)  # 20 itens por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -234,7 +234,7 @@ def cadastrar_localizacao(request):
 
 @is_user
 def listar_localizacao(request):
-    locais = Localizacao.objects.all()   
+    locais = Localizacao.objects.all().order_by("-cidade","gerencia")   
     return render(request, 'listar_localizacao.html', {'page_obj': locais})
 
 @is_admin

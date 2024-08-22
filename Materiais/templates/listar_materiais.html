@@ -137,7 +137,7 @@
                     {% for num in page_obj.paginator.page_range %}
                         {% if page_obj.number == num %}
                             <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
-                        {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                        {% elif num > page_obj.number|add:'-10' and num < page_obj.number|add:'15' %}
                             <li class="page-item"><a class="page-link" href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}&gerencia={{ selected_gerencia|default_if_none:'' }}">{{ num }}</a></li>
                         {% endif %}
                     {% endfor %}
