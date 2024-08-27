@@ -27,6 +27,7 @@ class Material(models.Model):
     codigo= models.CharField(verbose_name="Código",max_length=255,unique=False,null=True,blank=True)
     nome = models.CharField(verbose_name="Descrição Resumida",max_length=512,unique=False,null=True,blank=True)
     modelo= models.CharField(verbose_name="Modelo",max_length=255,unique=False,null=True,blank=True)
+    codigo_conta=models.CharField(verbose_name="Código da conta",max_length=255,unique=False,null=True,blank=True)
     data_cadastro=models.DateTimeField(auto_now_add=True)
     data_atualizacao=models.DateTimeField(auto_now=True)
     localizacao=models.ForeignKey(Localizacao,verbose_name="Unidade/Setor" ,on_delete=models.CASCADE)

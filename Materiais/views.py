@@ -81,6 +81,7 @@ def cadastrar_material_lote(request):
                     print(f"Item {rgp} ja existe!")
                     continue  # Pula para o próximo item
                 codigo=NAN(row['CÓDIGO MATERIAL'],"")
+                codigo_conta= NAN(row(["CÓDIGO DA CONTA"]))
                 nome = NAN(row['DESCRIÇÃO RESUMIDA'],"")
                 modelo = NAN(row['MARCA/MODELO'],"")
                 valor = numero(NAN(row['VALOR REAVALIAÇÃO'],0),float)
@@ -125,6 +126,7 @@ def cadastrar_material_lote(request):
                     uso=uso,
                     ativo=ativo,
                     servivel=servivel,
+                    codigo_conta=codigo_conta,
                     obs=''  # Ajustar conforme necessário
                 )
                 material.save()
@@ -211,7 +213,7 @@ def disponibilizar_item(request, id):
         return JsonResponse({'status': 'success', 'ativo': item.ativo, 'descartado': item.descartado})
     return JsonResponse({'status': 'fail'})
 
-@is_user
+@is_admin
 def apagar_item(request, id):
     item = get_object_or_404(Material, id=id)
     if request.method == 'POST':
@@ -274,7 +276,7 @@ def exportar_pdf(materiais_list):
     style_cell = ParagraphStyle(name='Normal', alignment=TA_LEFT, fontSize=10)
 
     # Dados da tabela
-    data = [["RGP", "Nome", "Localização", "Estado","Foto", "Valor","Servivel","em Uso?","Ativo"]]
+    data = [["RGP", "Nome", "Localização","Estado","Foto", "Valor","Servivel","em Uso?","Ativo"]]
     for material in materiais_list:
         ativo="Não"
         uso="Não"
@@ -346,6 +348,7 @@ def exportar_xlsx(materiais_list):
     data = [{
         'RGP': material.RGP,
         'codigo': material.codigo,
+        'codigo_conta':material.codigo_conta,
         'Nome': material.nome,
         'Modelo':material.modelo,
         'Localização': material.localizacao,

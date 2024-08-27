@@ -36,7 +36,7 @@
                 
                 <div class="input-group mb-3">
                     <select name="gerencia" class="form-control">
-                        <option value="">Todas as Gerências</option>
+                        <option value="">Todas Localidades</option>
                         {% for gerencia in gerencias %}
                             <option value="{{ gerencia }}" {% if selected_gerencia == gerencia|stringformat:"s" %} selected {% endif %}>{{ gerencia }}</option>
                         {% endfor %}
