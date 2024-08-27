@@ -6,7 +6,7 @@
 <html lang="pt-br">
   <head>
     {% load static %}
-    <link rel="icon" type="image/png" href="{% static 'simbol.svg' %}">
+    <link rel="icon" type="image/png" href="{% static 'simbol.svg' %}">.css
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -23,7 +23,9 @@
       <a class="nav-link text-light" href="{% url 'sair' %}">Sair</a>
     </nav>
 
-    {% block 'conteudo' %} {% endblock %}
+    <div class="container mt-5 pt-4"> <!-- Ajuste aqui -->
+      {% block 'conteudo' %} {% endblock %}
+    </div>
     <br>
     <br>
     <footer class="fixed-bottom text-left ">
