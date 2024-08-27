@@ -1,6 +1,6 @@
 /* Adiciona padding no body para garantir que o conteúdo não vá para fora da tela */
 body {
-    padding-top: 60px; /* Altura da navbar fixa */
+    padding-top: 70px; /* Altura da navbar fixa */
     margin: 0;
     overflow-x: hidden; /* Evita rolagem horizontal indesejada */
 }
