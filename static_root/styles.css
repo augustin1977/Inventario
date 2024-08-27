@@ -1,0 +1,81 @@
+/* Adiciona padding no body para garantir que o conteúdo não vá para fora da tela */
+body {
+    padding-top: 50px; /* Altura da navbar fixa */
+    margin: 0;
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+}
+
+/* Ajusta o comportamento da navbar para dispositivos móveis */
+.navbar {
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+}
+
+.navbar-nav .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+/* Ajusta a imagem do item para caber na tela */
+.item-image {
+    width: 100%; /* Faz a imagem ocupar a largura disponível */
+    max-width: 200px; /* Define um tamanho máximo para a imagem */
+    height: auto; /* Mantém a proporção da imagem */
+    object-fit: contain;
+}
+
+/* Ajusta a tabela para dispositivos móveis */
+.table-responsive {
+    overflow-x: auto; /* Permite rolagem horizontal se necessário */
+    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos touch */
+}
+
+/* Ajustes específicos para dispositivos móveis */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+    }
+
+    .navbar {
+        padding-top: 15px;
+    }
+
+    .container {
+        padding-top: 20px;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group .form-control, .input-group .input-group-append {
+        width: 100%;
+    }
+
+    .input-group .input-group-append {
+        margin-top: 10px;
+    }
+
+    .fixed-header th {
+        font-size: 14px;
+    }
+
+    .scrollable-table-responsive {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 430px) {
+    body {
+        padding-top: 100px; /* Ajusta o padding para dispositivos móveis */
+    }
+
+    .container {
+        padding-top: 10px;
+    }
+}
+
+.green {
+    color: rgb(100, 200, 80);
+}
