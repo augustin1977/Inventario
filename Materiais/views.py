@@ -73,8 +73,9 @@ def cadastrar_material_lote(request):
                     rgp="NC"
                 else:
                     rgp=rgp.zfill(8)
-                # i+=1
-                # print(i,rgp)
+                i+=1
+                if i%1000==0:
+                    messages.success(request, f"{i} arquivos processados.")
                 # Verificar se o material já existe
                 if Material.objects.filter(RGP=rgp).exists():
                     print(f"Item {rgp} ja existe!")

@@ -18,6 +18,13 @@
     <div class='row'>
         <div class='col-md-2'></div>
         <div class='col-md'>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <form method="POST" enctype="multipart/form-data">
  
                 <!-- Security token -->

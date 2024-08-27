@@ -33,14 +33,20 @@ body {
 }
 
 /* Ajustes específicos para dispositivos móveis */
-@media (max-width: 1120px) {
+@media (max-width: 1300px) {
     body {
         padding-top: 165px; /* Ajusta o padding para dispositivos móveis */
     }
 }
+@media (max-width: 100px) {
+    body {
+        padding-top: 200px; /* Ajusta o padding para dispositivos móveis */
+    }
+
+}
 @media (max-width: 430px) {
     body {
-        padding-top: 240px; /* Ajusta o padding para dispositivos móveis */
+        padding-top: 250px; /* Ajusta o padding para dispositivos móveis */
     }
 
 }
