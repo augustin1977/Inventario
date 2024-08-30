@@ -28,10 +28,16 @@ body {
 .table-responsive {
     overflow-x: auto; /* Permite rolagem horizontal se necessário */
     -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos touch */
+    max-height: 100vh; /* Limita a altura máxima da tabela à altura da tela */
+    overflow-y: auto; /* Permite rolagem vertical se a tabela for muito alta */
 }
 
 /* Ajustes específicos para dispositivos móveis */
 @media (max-width: 768px) {
+    .watermark {
+        height: 40%; /* Ajuste a altura da marca d'água em dispositivos móveis */
+        background-size: 100% auto; /* Ajusta o tamanho da imagem para manter a proporção */
+    }
     .navbar-nav {
         flex-direction: column;
     }
@@ -54,7 +60,7 @@ body {
         font-size: 14px;
     }
     .scrollable-table-responsive {
-        max-height: 300px;
+        max-height: 50vh;
         overflow-y: auto;
     }
 }

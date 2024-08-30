@@ -16,6 +16,7 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.units import cm
 import os
 import io
+from datetime import datetime
 import pandas as pd
 from PIL import Image as PILImage
 from django.http import JsonResponse
@@ -261,7 +262,31 @@ def editar_localizacao(request, id):
         form = CadastroLocalizacao(instance=local)
     return render(request, 'editar_localizacao.html', {'form': form, 'local': local})
 
+def add_header(canvas, doc):
+    # Salvar o estado do canvas para reverter após o cabeçalho
+    add_footer(canvas,doc)
+    canvas.saveState()
 
+    # Adicionar imagem no topo à esquerda
+    logo_path = os.path.join(settings.STATICFILES_DIRS[0], "img_low.jpg")
+    canvas.drawImage(logo_path, x=20, y=720, width=2 * cm, height=2 * cm, preserveAspectRatio=True)
+
+    # Configurar estilos   
+    canvas.setFont("Helvetica", 16)
+    canvas.drawString(100, 760, "Superintendência Regional do Trabalho em São Paulo")
+     # Restaurar o estado original do canvas
+    canvas.restoreState()
+def add_footer(canvas, doc):
+    # Salvar o estado do canvas para reverter após o rodapé
+    canvas.saveState()
+    # Adicionar o número da página no rodapé
+    report_date = datetime.now().strftime("%d/%m/%Y")
+    page_number_text = f"Data: {report_date} {'-':^140s} Página {doc.page} "
+    canvas.setFont("Helvetica", 10)
+    canvas.drawCentredString(300, 15, page_number_text)
+
+    # Restaurar o estado original do canvas
+    canvas.restoreState()   
 def exportar_pdf(materiais_list):
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=20, leftMargin=20, topMargin=28.35, bottomMargin=28.35)  # 1 cm = 28.35 points
@@ -270,7 +295,7 @@ def exportar_pdf(materiais_list):
     style_title = styles['Title']
     style_title.alignment = TA_CENTER
 
-    title = Paragraph("Relatório de Materiais", style_title)
+    title = Paragraph("Inventário São Paulo", style_title)
 
     # Estilo para as células da tabela
     style_cell = ParagraphStyle(name='Normal', alignment=TA_LEFT, fontSize=10)
@@ -323,7 +348,7 @@ def exportar_pdf(materiais_list):
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
         ('FONTSIZE', (0, 0), (-1, 0), 10),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.white),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
         ('ALIGN', (0, 1), (-1, -1), 'LEFT'),
         ('FONTSIZE', (0, 1), (-1, -1), 8),
@@ -333,7 +358,7 @@ def exportar_pdf(materiais_list):
 
     # Construir o documento
     elements = [title, Spacer(1, 12), table]
-    doc.build(elements)
+    doc.build(elements, onFirstPage=add_header, onLaterPages=add_footer, )
 
     buffer.seek(0)
 
