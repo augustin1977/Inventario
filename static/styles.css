@@ -35,38 +35,31 @@ body {
     .navbar-nav {
         flex-direction: column;
     }
-
     .navbar {
         padding-top: 15px;
     }
-
     .container {
         padding-top: 20px;
     }
-
     .input-group {
         flex-direction: column;
     }
-
     .input-group .form-control, .input-group .input-group-append {
         width: 100%;
     }
-
     .input-group .input-group-append {
         margin-top: 10px;
     }
-
     .fixed-header th {
         font-size: 14px;
     }
-
     .scrollable-table-responsive {
         max-height: 300px;
         overflow-y: auto;
     }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 530px) {
     body {
         padding-top: 100px; /* Ajusta o padding para dispositivos móveis */
     }
@@ -75,21 +68,29 @@ body {
         padding-top: 10px;
     }
 }
+@media (max-width: 380px) {
+    body {
+        padding-top: 150px; /* Ajusta o padding para dispositivos móveis */
+    }
 
+    .container {
+        padding-top: 10px;
+    }
+}
 .green {
     color: rgb(100, 200, 80);
 }
-body::before {
-    content: "";
-    background-image: url('{% static "img_medium.jpg" %}'); /* Caminho da imagem de marca d'água */
-    background-size: contain; /* Ajusta o tamanho da imagem conforme necessário */
-    background-repeat: no-repeat; /* Evita repetição da imagem */
-    background-position: center; /* Centraliza a imagem na página */
-    opacity: 0.5; /* Define a transparência */
-    position: fixed; /* Fixa a imagem para que ela não role com o conteúdo */
+.watermark {
+    position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
     height: 100%;
-    z-index: -1; /* Garante que o fundo fique atrás de todos os elementos */
+    background-image: url("img_medium.jpg");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.1;
+    z-index: -1; /* Garante que a marca d'água fique atrás do conteúdo */
 }
