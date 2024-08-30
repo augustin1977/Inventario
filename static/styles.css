@@ -79,3 +79,17 @@ body {
 .green {
     color: rgb(100, 200, 80);
 }
+body::before {
+    content: "";
+    background-image: url('{% static "img_medium.jpg" %}'); /* Caminho da imagem de marca d'água */
+    background-size: contain; /* Ajusta o tamanho da imagem conforme necessário */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    background-position: center; /* Centraliza a imagem na página */
+    opacity: 0.5; /* Define a transparência */
+    position: fixed; /* Fixa a imagem para que ela não role com o conteúdo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Garante que o fundo fique atrás de todos os elementos */
+}
