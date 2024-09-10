@@ -80,8 +80,8 @@ def cadastrar_material_lote(request):
                     print(f"{rgp} ja existe")
                     continue  # Pula para o próximo item
                     
-                codigo=NAN(row['CODIGO MATERIAL'],"")
-                codigo_conta = NAN(row['CODIGO DA CONTA'],"")
+                codigo=NAN(row['CÓDIGO MATERIAL'],"")
+                codigo_conta = NAN(row['CÓDIGO DA CONTA'],"")
                 nome = NAN(row['DESCRIÇÃO RESUMIDA'],"")
                 modelo = NAN(row['MARCA/MODELO'],"")
                 valor = numero(NAN(row['VALOR REAVALIAÇÃO'],0),float)
