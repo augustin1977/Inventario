@@ -77,7 +77,7 @@ def cadastrar_material_lote(request):
                     messages.success(request, f"{i} arquivos processados.")
                 # Verificar se o material já existe
                 if Material.objects.filter(RGP=rgp).exists() and not (rgp=="SRGP"):
-                    print(f"{rgp} ja existe")
+                    #print(f"{rgp} ja existe")
                     continue  # Pula para o próximo item
                     
                 codigo=NAN(row['CÓDIGO MATERIAL'],"")
@@ -105,7 +105,7 @@ def cadastrar_material_lote(request):
                 else:
                     estado=Estado_bem.objects.get(estado="NA")
                 # Definir os valores de uso, ativo e servível com base na coluna Condição
-                if NAN(row['Condição'],0) == 0:
+                if NAN(row['CONDIÇÃO'],0) == 0:
                     uso = True
                     ativo = True
                     servivel = True
