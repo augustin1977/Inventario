@@ -38,7 +38,7 @@ def numero(valor,tipo):
             if(i>=len(valor)):
                     valor=0
     return valor
-def NAN(valor,opcao):
+def NAN(valor,opcao=""):
     if pd.isna(valor) or valor=="NaN":
         return opcao
     else:

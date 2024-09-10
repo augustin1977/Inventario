@@ -69,20 +69,19 @@ def cadastrar_material_lote(request):
             # Iterar sobre as linhas da planilha
            
             for index, row in df.iterrows():
-                rgp = NAN(str(row['RGP 8 dígitos']),"")  # Garantir que o RGP tenha 8 dígitos, preenchendo com zeros à esquerda
-                if rgp=="":
-                    rgp="NC"
-                else:
-                    rgp=rgp.zfill(8)
+                rgp = NAN(str(row['RGP']),"NC")  # Garantir que o RGP tenha 9 dígitos, preenchendo com zeros à esquerda
+                if rgp.isdigit():
+                    rgp=rgp.zfill(9)
                 i+=1
                 if i%1000==0:
                     messages.success(request, f"{i} arquivos processados.")
                 # Verificar se o material já existe
-                if Material.objects.filter(RGP=rgp).exists():
-                    print(f"Item {rgp} ja existe!")
+                if Material.objects.filter(RGP=rgp).exists() and not (rgp=="SRGP"):
+                    print(f"{rgp} ja existe")
                     continue  # Pula para o próximo item
-                codigo=NAN(row['CÓDIGO MATERIAL'],"")
-                codigo_conta= NAN(row(["CÓDIGO DA CONTA"]))
+                    
+                codigo=NAN(row['CODIGO MATERIAL'],"")
+                codigo_conta = NAN(row['CODIGO DA CONTA'],"")
                 nome = NAN(row['DESCRIÇÃO RESUMIDA'],"")
                 modelo = NAN(row['MARCA/MODELO'],"")
                 valor = numero(NAN(row['VALOR REAVALIAÇÃO'],0),float)
