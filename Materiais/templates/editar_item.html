@@ -25,7 +25,12 @@
              
                 <!-- Using the formset -->
                 {{ form|bootstrap }}
-                 
+                {% if item.foto1 %}
+                <p>Imagem atual: <img src="{{ item.foto1.url }}" alt="Foto atual" width="150"></p>
+        
+                <!-- Checkbox para apagar a foto -->
+
+                {% endif %}
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
                 <a href="{% url 'listar_materiais' %}" class="btn btn-secondary">Cancelar</a>
             </form> 

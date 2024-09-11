@@ -198,14 +198,31 @@ def editar_item(request, id):
         form = CadstroMaterial(request.POST, request.FILES, instance=item)
         if form.is_valid():
             material = form.save(commit=False)
+
+            # Verifica se a checkbox de exclusão foi marcada
+            if form.cleaned_data.get('delete_foto1'):
+                # Apaga o arquivo do campo foto1 do disco
+                if item.foto1:
+                    foto1_path = item.foto1.path
+                    if os.path.exists(foto1_path):
+                        os.remove(foto1_path)  # Apaga o arquivo do disco
+                    material.foto1 = None  # Remove a referência à imagem no banco de dados
+
+            # Se uma nova imagem foi enviada, processa o upload
             if 'foto1' in request.FILES:
+                if item.foto1:
+                    foto1_path = item.foto1.path
+                    if os.path.exists(foto1_path):
+                        os.remove(foto1_path)  # Apaga o arquivo do disco
                 original_image = request.FILES['foto1']
-                resized_image = resize_image(original_image)
+                resized_image = resize_image(original_image)  # Função de redimensionamento
                 material.foto1 = resized_image
+
             material.save()
             return redirect('listar_materiais')
     else:
         form = CadstroMaterial(instance=item)
+
     return render(request, 'editar_item.html', {'form': form, 'item': item})
 
 @is_user

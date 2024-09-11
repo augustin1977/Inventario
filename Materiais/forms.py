@@ -16,7 +16,9 @@ class CadstroMaterial(forms.ModelForm):
     max_digits=19, 
     decimal_places=4, 
     default_currency='BRL', )
-   
+    delete_foto1 = forms.BooleanField(
+        required=False, label='Apagar Foto Atual')
+
     # create meta class
     class Meta:
         # specify model to be used
