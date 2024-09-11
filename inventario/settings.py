@@ -143,7 +143,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 # media settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = (os.path.join(BASE_DIR, 'media')) #pasta media para abrigar os arquivos dos usuários
-
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 # email config
 EMAIL_BACKEND=secret.backend
 EMAIL_HOST=secret.host

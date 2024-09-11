@@ -197,7 +197,12 @@ def editar_item(request, id):
     if request.method == 'POST':
         form = CadstroMaterial(request.POST, request.FILES, instance=item)
         if form.is_valid():
-            form.save()
+            material = form.save(commit=False)
+            if 'foto1' in request.FILES:
+                original_image = request.FILES['foto1']
+                resized_image = resize_image(original_image)
+                material.foto1 = resized_image
+            material.save()
             return redirect('listar_materiais')
     else:
         form = CadstroMaterial(instance=item)
