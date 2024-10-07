@@ -23,9 +23,15 @@ import secret
 SECRET_KEY = secret.secretkey
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.0.62','localhost','127.0.0.1','192.168.0.197','inventariosp.ddns.net','192.168.0.97']
+ALLOWED_HOSTS = ['192.168.0.62',
+                 'localhost',
+                 '127.0.0.1',
+                 'casaaugustin.zapto.org',
+                 'inventariosp.ddns.net',
+                 '192.168.0.97',
+                 ]
 
 
 # Application definition
