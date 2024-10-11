@@ -23,7 +23,7 @@ import secret
 SECRET_KEY = secret.secretkey
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
                  '127.0.0.1',
@@ -145,7 +145,7 @@ SESSION_COOKIE_AGE = 60*60*4
 SESSION_SAVE_EVERY_REQUEST = True
 
 # media settings
-MEDIA_URL = '/media/'
+MEDIA_URL = (os.path.join(BASE_DIR, 'media'))
 MEDIA_ROOT = (os.path.join(BASE_DIR, 'media')) #pasta media para abrigar os arquivos dos usuários
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 # email config
