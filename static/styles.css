@@ -24,6 +24,7 @@ body {
     object-fit: contain;
 }
 
+
 /* Ajusta a tabela para dispositivos móveis */
 .table-responsive {
     overflow-x: auto; /* Permite rolagem horizontal se necessário */
