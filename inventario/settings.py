@@ -27,8 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
                  '127.0.0.1',
-                 'inventariosp.ddns.net',
+                 'inventariomte.zaptp.org',
                  'casaaugustin.zapto.org',
+                 'inventariosp.zapto.org',
                  '192.168.0.97']
 
 
